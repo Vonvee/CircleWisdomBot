@@ -1,0 +1,17 @@
+{
+  "name": "krugchteniya",
+  "version": "1.0.0",
+  "description": "Telegram bot",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "engines": {
+    "node": "9.4.1"
+  },
+  "author": "Fedor Irkhin",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
