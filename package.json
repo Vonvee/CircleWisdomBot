@@ -7,11 +7,13 @@
     "start": "node main.js"
   },
   "engines": {
-    "node": "6.11.1"
+    "node": "6.11.1",
+    "npm": "1.2.25"
   },
   "author": "Fedor Irkhin",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.30.0"
+    "node-telegram-bot-api": "^0.30.0",
+    "express": "3.2.6"
   }
 }
