@@ -7,7 +7,7 @@
     "start": "node main.js"
   },
   "engines": {
-    "node": "9.40.0"
+    "node": "6.11.1"
   },
   "author": "Fedor Irkhin",
   "license": "ISC",
