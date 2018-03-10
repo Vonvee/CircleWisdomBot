@@ -48,13 +48,14 @@ function getTextForDate() {
     console.log(date);
     const filePath = path.join(__dirname, "./texts/Days/" + date + ".json");
 
-    return fs.readFileSync(filePath, {encoding: 'utf-8'});
+    return date+":\n"+fs.readFileSync(filePath, {encoding: 'utf-8'});
 }
 
 
 setInterval(function () {
     var curDate = new Date().getHours() + ':' + new Date().getMinutes();
     if (msg_time['time'] === curDate) {
+        bot.sendMessage(msg_time['uid'], "Test");
         bot.sendMessage(msg_time['uid'], getTextForDate());
         console.log(msg_time['time'])
     }
