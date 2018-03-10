@@ -53,6 +53,7 @@ function getTextForDate() {
 
 
 setInterval(function () {
+    bot.sendMessage(msg_time['uid'], "Test");
     var curDate = new Date().getHours() + ':' + new Date().getMinutes();
     if (msg_time['time'] === curDate) {
         bot.sendMessage(msg_time['uid'], "Test");
