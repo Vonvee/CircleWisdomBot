@@ -1,4 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
+const Cron = require('cron');
 const token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
 const bot = new TelegramBot(token, {polling: true});
 const timeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
@@ -26,11 +27,11 @@ bot.onText(/\/settime/, (msg) => {
 bot.on('message', (msg) => {
     var new_time = msg.text.toString();
     if (timeFormat.test(new_time)) {
-        if (new_time.startsWith("00")) {
+        if (new_time.startsWith("0")) {
             new_time = new_time.substring(1);
         }
         msg_time = {'uid': msg.chat.id, 'time': new_time};
-        console.log("Сообщения будут присылаться в " + msg_time['time'] + " пользователю:" + msg_time['uid'])
+        console.log("Сообщения будут присылаться в " + msg_time['time'] + " пользователю: " + msg_time['uid']);
         bot.sendMessage(msg.chat.id, "Сообщения будут присылаться в " + msg_time['time']);
     }
     else {
@@ -52,12 +53,18 @@ function getTextForDate() {
 }
 
 
-setInterval(function () {
-    bot.sendMessage(msg_time['uid'], "Test");
-    var curDate = new Date().getHours() + ':' + new Date().getMinutes();
-    if (msg_time['time'] === curDate) {
-        bot.sendMessage(msg_time['uid'], "Test");
-        bot.sendMessage(msg_time['uid'], getTextForDate());
-        console.log(msg_time['time'])
-    }
-}, 60000);
+const job = new Cron.CronJob({
+    cronTime: '01 * * * * *',
+    onTick: function() {
+        var curDate = new Date().getHours() + ':' + new Date().getMinutes();
+        if (msg_time['time'] === curDate) {
+            bot.sendMessage(msg_time['uid'], "Test2");
+            bot.sendMessage(msg_time['uid'], getTextForDate());
+            console.log('Сообщение отправлено в '+msg_time['time'])
+        }
+        console.log(msg_time['uid'], "Test, curDate = "+curDate+" msg_time = "+msg_time['time'])
+    },
+    start: true
+});
+
+job.start();
