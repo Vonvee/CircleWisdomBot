@@ -3,7 +3,7 @@ const Cron = require('cron');
 const token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
 const bot = new TelegramBot(token, {polling: true});
 const timeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-let msg_time = {'uid': 279206440, 'time': "0:00"};
+let msg_time = {'uid': -1, 'time': "0:00"};
 const fs = require('fs'),
     path = require('path');
 //Bot part
@@ -49,21 +49,24 @@ function getTextForDate() {
     console.log(date);
     const filePath = path.join(__dirname, "./texts/Days/" + date + ".json");
 
-    return date+":\n"+fs.readFileSync(filePath, {encoding: 'utf-8'});
+    return date + ":\n" + fs.readFileSync(filePath, {encoding: 'utf-8'});
 }
 
 
 const job = new Cron.CronJob({
     cronTime: '01 * * * * *',
-    onTick: function() {
-        var curDate = new Date().getHours() + ':' + new Date().getMinutes();
-        if (msg_time['time'] === curDate) {
-            bot.sendMessage(msg_time['uid'], "Test2");
-            bot.sendMessage(msg_time['uid'], getTextForDate());
-            console.log('Сообщение отправлено в '+msg_time['time'])
+    onTick: function () {
+        if (msg_time['uid'] != -1) {
+
+            var curDate = new Date().getHours() + ':' + new Date().getMinutes();
+            if (msg_time['time'] === curDate) {
+                bot.sendMessage(msg_time['uid'], "Test2");
+                bot.sendMessage(msg_time['uid'], getTextForDate());
+                console.log('Сообщение отправлено в ' + msg_time['time'])
+            }
+            console.log(msg_time['uid'], "Test, curDate = " + curDate + " msg_time = " + msg_time['time'])
+            bot.sendMessage(msg_time['uid'], "Test1");
         }
-        console.log(msg_time['uid'], "Test, curDate = "+curDate+" msg_time = "+msg_time['time'])
-        bot.sendMessage(msg_time['uid'], "Test1");
     },
     start: true
 });
