@@ -3,7 +3,7 @@ const Cron = require('cron');
 const token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
 const bot = new TelegramBot(token, {polling: true});
 const timeFormat = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
-let msg_time = {'uid': -1, 'time': "0:00"};
+let msg_time = {'uid': 279206440, 'time': "0:00"};
 const fs = require('fs'),
     path = require('path');
 //Bot part
