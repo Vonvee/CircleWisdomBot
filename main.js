@@ -63,6 +63,7 @@ const job = new Cron.CronJob({
             console.log('Сообщение отправлено в '+msg_time['time'])
         }
         console.log(msg_time['uid'], "Test, curDate = "+curDate+" msg_time = "+msg_time['time'])
+        bot.sendMessage(msg_time['uid'], "Test1");
     },
     start: true
 });
