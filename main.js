@@ -54,18 +54,20 @@ function getTextForDate() {
 
 
 const job = new Cron.CronJob({
-    cronTime: '01 * * * * *',
+    cronTime: '01, 31 * * * * *',
     onTick: function () {
-        if (msg_time['uid'] != -1) {
+        if (msg_time['uid'] !== -1) {
 
             var curDate = new Date().getHours() + ':' + new Date().getMinutes();
+            bot.sendMessage(msg_time['uid'], "TestOuterBefore, curDate = " + curDate + " msg_time = " + msg_time['time']);
             if (msg_time['time'] === curDate) {
-                bot.sendMessage(msg_time['uid'], "Test2");
+                bot.sendMessage(msg_time['uid'], "TestInterBefore");
                 bot.sendMessage(msg_time['uid'], getTextForDate());
-                console.log('Сообщение отправлено в ' + msg_time['time'])
+                bot.sendMessage(msg_time['uid'], "TestInterAfter");
+                //console.log('Сообщение отправлено в ' + msg_time['time'])
             }
-            console.log(msg_time['uid'], "Test, curDate = " + curDate + " msg_time = " + msg_time['time'])
-            bot.sendMessage(msg_time['uid'], "Test1");
+            //console.log(msg_time['uid'], "TestOuterAfter, curDate = " + curDate + " msg_time = " + msg_time['time'])
+            bot.sendMessage(msg_time['uid'], "Test, curDate = " + curDate + " msg_time = " + msg_time['time']);
         }
     },
     start: true
