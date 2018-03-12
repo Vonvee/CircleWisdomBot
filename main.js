@@ -47,7 +47,7 @@ function getTextForDate() {
     });
     date = date.replace(' ', ' ');
     console.log(date);
-    const filePath = path.join(__dirname, "./texts/Days/" + date + ".json");
+    const filePath = "./texts/Days/" + date + ".json";
 
     return date + ":\n" + fs.readFileSync(filePath, {encoding: 'utf-8'});
 }
@@ -63,7 +63,7 @@ const job = new Cron.CronJob({
             if (msg_time['uid'] !== -1) {
                 var curMinutes = new Date().getMinutes();
                 curMinutes = curMinutes.toString().length === 1 ? '0' + curMinutes.toString() : curMinutes;
-                var curDate = (new Date().getHours() + 3) + ':' + curMinutes;
+                var curDate = (new Date().getHours() + 1) + ':' + curMinutes;
                 bot.sendMessage(msg_time['uid'], "TestOuterBefore, curDate = " + curDate + " msg_time = " + msg_time['time']);
                 if (msg_time['time'] === curDate) {
                     bot.sendMessage(msg_time['uid'], "TestInterBefore");
@@ -78,8 +78,7 @@ const job = new Cron.CronJob({
         catch(e){
             bot.sendMessage(msg_time['uid'], e.toString());
         }
-    },
-    start: true
+    }
 });
 
 job.start();
