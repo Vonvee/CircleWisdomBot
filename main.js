@@ -54,27 +54,30 @@ function getTextForDate() {
 
 
 const job = new Cron.CronJob({
-    cronTime: '01, 31 * * * * *',
+    cronTime: '01, 16, 31 ,46 * * * * *',
     onTick: function () {
-        try {
-            if (msg_time['uid'] !== -1) {
-                var curMinutes = new Date().getMinutes();
-                curMinutes = curMinutes.toString().length === 1 ? '0' + curMinutes.toString() : curMinutes;
-                var curDate = (new Date().getHours() + 3) + ':' + curMinutes;
-                bot.sendMessage(msg_time['uid'], "TestOuterBefore, curDate = " + curDate + " msg_time = " + msg_time['time']);
-                if (msg_time['time'] === curDate) {
-                    bot.sendMessage(msg_time['uid'], "TestInterBefore");
-                    bot.sendMessage(msg_time['uid'], getTextForDate());
-                    bot.sendMessage(msg_time['uid'], "TestInterAfter");
-                    //console.log('Сообщение отправлено в ' + msg_time['time'])
-                }
-                //console.log(msg_time['uid'], "TestOuterAfter, curDate = " + curDate + " msg_time = " + msg_time['time'])
-                bot.sendMessage(msg_time['uid'], "Test, curDate = " + curDate + " msg_time = " + msg_time['time']);
-            }
+        if (msg_time['uid'] !== -1) {
+            bot.sendMessage(msg_time['uid'], "Test");
         }
-        catch(e){
-            bot.sendMessage(msg_time['uid'], e.toString());
-        }
+        // try {
+        //     if (msg_time['uid'] !== -1) {
+        //         var curMinutes = new Date().getMinutes();
+        //         curMinutes = curMinutes.toString().length === 1 ? '0' + curMinutes.toString() : curMinutes;
+        //         var curDate = (new Date().getHours() + 3) + ':' + curMinutes;
+        //         bot.sendMessage(msg_time['uid'], "TestOuterBefore, curDate = " + curDate + " msg_time = " + msg_time['time']);
+        //         if (msg_time['time'] === curDate) {
+        //             bot.sendMessage(msg_time['uid'], "TestInterBefore");
+        //             bot.sendMessage(msg_time['uid'], getTextForDate());
+        //             bot.sendMessage(msg_time['uid'], "TestInterAfter");
+        //             //console.log('Сообщение отправлено в ' + msg_time['time'])
+        //         }
+        //         //console.log(msg_time['uid'], "TestOuterAfter, curDate = " + curDate + " msg_time = " + msg_time['time'])
+        //         bot.sendMessage(msg_time['uid'], "TestOuterAfter, curDate = " + curDate + " msg_time = " + msg_time['time']);
+        //     }
+        // }
+        // catch(e){
+        //     bot.sendMessage(msg_time['uid'], e.toString());
+        // }
     },
     start: true
 });
