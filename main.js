@@ -57,8 +57,9 @@ const job = new Cron.CronJob({
     cronTime: '01, 31 * * * * *',
     onTick: function () {
         if (msg_time['uid'] !== -1) {
-
-            var curDate = new Date().getHours() + ':' + new Date().getMinutes();
+            var curMinutes = new Date().getMinutes();
+            curMinutes = curMinutes.toString().length === 1 ? '0'+curMinutes.toString() : curMinutes;
+            var curDate = (new Date().getHours()+3) + ':' + curMinutes;
             bot.sendMessage(msg_time['uid'], "TestOuterBefore, curDate = " + curDate + " msg_time = " + msg_time['time']);
             if (msg_time['time'] === curDate) {
                 bot.sendMessage(msg_time['uid'], "TestInterBefore");
