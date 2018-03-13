@@ -1,23 +1,33 @@
 var TelegramBot = require('node-telegram-bot-api'),
     Cron = require('cron').CronJob,
     request = require('request'),
+    Entities = require('html-entities').AllHtmlEntities,
+    entities = new Entities(),
     token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
-var id = -1
+
+
 var bot = new TelegramBot(token, {
     polling: true,
 });
 
-var job = new Cron('0,30 * * * * *', function () {
-    if (id !== -1)
-        bot.sendMessage(id, "Hi!");
+bot.on('message', function(msg) {
+    var id = msg.from.id;
+    bot.sendMessage(id, msg.text);
+    console.log(msg);
+})
+
+var job = new Cron('0,30 * * * * *', function() {
+    var chatId = 60024912,
+        url = 'http://www.umori.li/api/random?site=bash.im&name=bash&num=1';
+
+    request(url, function(error, response, body) {
+        var data = JSON.parse(body);
+        // console.log(data);
+        bot.sendMessage(chatId, entities.decode(data[0].elementPureHtml));
+    })
 });
 
-job.start();
-
-bot.on('message', function (msg) {
-    id = msg.from.id;
-    bot.sendMessage(id, msg.text);
-    // console.log(msg);
+job.start();le.log(msg);
 })
 // const TelegramBot = require('node-telegram-bot-api');
 // const Cron = require('cron');
