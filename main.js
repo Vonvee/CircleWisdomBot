@@ -9,7 +9,7 @@ var bot = new TelegramBot(token, {
 
 var job = new Cron('0,30 * * * * *', function () {
     if (id !== -1)
-        bot.sendMessage(id, msg.text);
+        bot.sendMessage(id, "Hi!");
 });
 
 job.start();
