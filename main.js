@@ -9,25 +9,28 @@ var TelegramBot = require('node-telegram-bot-api'),
 var bot = new TelegramBot(token, {
     polling: true,
 });
-
-bot.on('message', function(msg) {
+var chatId = -1;
+bot.on('message', function (msg) {
     var id = msg.from.id;
     bot.sendMessage(id, msg.text);
-    console.log(msg);
+    chatId = id;
 })
 
-var job = new Cron('0,30 * * * * *', function() {
-    var chatId = 60024912,
-        url = 'http://www.umori.li/api/random?site=bash.im&name=bash&num=1';
+var job = new Cron('0,30 * * * * *', function () {
+    if(chatId != -1) {
+        var
+            url = 'http://www.umori.li/api/random?site=bash.im&name=bash&num=1';
 
-    request(url, function(error, response, body) {
-        var data = JSON.parse(body);
-        // console.log(data);
-        bot.sendMessage(chatId, entities.decode(data[0].elementPureHtml));
-    })
+        request(url, function (error, response, body) {
+            var data = JSON.parse(body);
+            // console.log(data);
+            bot.sendMessage(chatId, entities.decode(data[0].elementPureHtml));
+        })
+    }
 });
 
-job.start();le.log(msg);
+job.start();
+le.log(msg);
 })
 // const TelegramBot = require('node-telegram-bot-api');
 // const Cron = require('cron');
