@@ -30,8 +30,7 @@ var job = new Cron('0,30 * * * * *', function () {
 });
 
 job.start();
-le.log(msg);
-})
+
 // const TelegramBot = require('node-telegram-bot-api');
 // const Cron = require('cron');
 // const token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
