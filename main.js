@@ -2,19 +2,20 @@ var TelegramBot = require('node-telegram-bot-api'),
     Cron = require('cron').CronJob,
     request = require('request'),
     token = '522894086:AAE4iZaJ--8yBJ5dj7nUQE9kQPB6TPo8Rq8';
-
+var id = -1
 var bot = new TelegramBot(token, {
     polling: true,
 });
 
-var job = new Cron('0,30 * * * * *', function() {
-    console.log('Hi!');
+var job = new Cron('0,30 * * * * *', function () {
+    if (id !== -1)
+        bot.sendMessage(id, msg.text);
 });
 
 job.start();
 
-bot.on('message', function(msg) {
-    var id = msg.from.id;
+bot.on('message', function (msg) {
+    id = msg.from.id;
     bot.sendMessage(id, msg.text);
     // console.log(msg);
 })
